@@ -1,11 +1,8 @@
-use lette::router;
+use lette::cmd;
 
-#[tokio::main]
-async fn main() {
-    let app = router::new();
+fn main() -> anyhow::Result<()> {
+    let cli = cmd::new();
+    cli.handle()?;
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:5000").await.unwrap();
-
-    println!("Listening on: http://0.0.0.0:5000");
-    axum::serve(listener, app).await.unwrap();
+    Ok(())
 }
