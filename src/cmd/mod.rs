@@ -2,6 +2,8 @@ mod serve;
 
 use clap::{Parser, Subcommand};
 
+use crate::conf::Conf;
+
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 pub struct Cli {
@@ -20,10 +22,10 @@ pub fn new() -> Cli {
 }
 
 impl Cli {
-    pub fn handle(&self) -> anyhow::Result<()> {
+    pub fn handle(&self, conf: &Conf) -> anyhow::Result<()> {
         match &self.subcmd {
             Some(Commands::Serve(subcmd)) => {
-                serve::handle(subcmd)?;
+                serve::handle(subcmd, conf)?;
             }
             None => {}
         }

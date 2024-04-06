@@ -25,7 +25,7 @@ pub async fn serve(port: u16) -> anyhow::Result<()> {
     let addr = format!("0.0.0.0:{}", port);
     let listener = TcpListener::bind(addr).await?;
 
-    println!("Listening on: http://{}", listener.local_addr().unwrap());
+    tracing::info!("Listening on: http://{}", listener.local_addr().unwrap());
     axum::serve(listener, app).await?;
 
     Ok(())

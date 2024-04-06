@@ -1,4 +1,4 @@
-use crate::router;
+use crate::{conf::Conf, router};
 use clap::Args;
 
 #[derive(Args, Debug)]
@@ -8,7 +8,7 @@ pub struct ServeCmd {
     port: Option<u16>,
 }
 
-pub fn handle(cmd: &ServeCmd) -> anyhow::Result<()> {
+pub fn handle(cmd: &ServeCmd, _conf: &Conf) -> anyhow::Result<()> {
     let port = cmd.port.unwrap_or(5000);
     start_server(port)?;
     Ok(())
