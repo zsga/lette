@@ -15,7 +15,10 @@ target/
 
 
 # Added by cargo
-
 /target
+
+# custom
 dev.toml
 .env
+logs/
+.vscode/
