@@ -8,17 +8,17 @@ pub struct ServeCmd {
     port: Option<u16>,
 }
 
-pub fn handle(cmd: &ServeCmd, _conf: &Conf) -> anyhow::Result<()> {
-    let port = cmd.port.unwrap_or(5000);
-    start_server(port)?;
+pub fn handle(cmd: &ServeCmd, conf: &Conf) -> anyhow::Result<()> {
+    let port = cmd.port.unwrap_or(conf.app.port);
+    start_server(conf, port)?;
     Ok(())
 }
 
-fn start_server(port: u16) -> anyhow::Result<()> {
+fn start_server(conf: &Conf, port: u16) -> anyhow::Result<()> {
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()
         .build()?
-        .block_on(async move { router::serve(port).await })?;
+        .block_on(async move { router::serve(conf, port).await })?;
 
     std::process::exit(0)
 }
