@@ -1,3 +1,4 @@
+mod db;
 mod serve;
 
 use clap::{Parser, Subcommand};
@@ -15,6 +16,8 @@ pub struct Cli {
 enum Commands {
     /// Start HTTP server
     Serve(serve::ServeCmd),
+    /// Database operation
+    Db(db::DbCmd),
 }
 
 pub fn new() -> Cli {
@@ -26,6 +29,9 @@ impl Cli {
         match &self.subcmd {
             Some(Commands::Serve(subcmd)) => {
                 serve::handle(subcmd, conf)?;
+            }
+            Some(Commands::Db(subcmd)) => {
+                db::handle(subcmd, conf)?;
             }
             None => {}
         }
