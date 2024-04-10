@@ -28,3 +28,6 @@ utoipa = { version = "4.2.0", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "6.0.0", features = ["axum"] }
 sqlx = { version = "0.7", features = [ "runtime-tokio", "tls-rustls", "mysql", "chrono"] }
 config = "0.14.0"
+chrono = { version = "0.4.37", features = ["serde"] }
+thiserror = "1.0.58"
+argon2 = { version = "0.5.3", features = ["std"] }

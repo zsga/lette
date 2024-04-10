@@ -1,6 +1,5 @@
 use axum::{response::IntoResponse, Json};
 
-pub mod error;
 pub mod healthcheck;
 pub mod v1;
 

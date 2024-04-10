@@ -11,8 +11,7 @@ use utoipa::{
     ),
     components(
         schemas(
-            crate::api::error::ErrorResponse,
-            crate::api::error::Status,
+            crate::error::Error,
         ),
     ),
     modifiers(&SecurityAddon),
