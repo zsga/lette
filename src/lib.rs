@@ -6,3 +6,4 @@ pub mod error;
 pub mod log;
 pub mod repository;
 pub mod router;
+pub mod util;
