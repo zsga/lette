@@ -4,12 +4,13 @@ use sqlx::types::chrono::NaiveDateTime;
 
 #[derive(Debug, Serialize)]
 pub struct UserData {
+    pub id: i32,
     pub name: String,
     pub nickname: Option<String>,
     pub email: String,
     pub avatar: Option<String>,
-    pub created_at: Option<NaiveDateTime>,
-    pub logined_at: Option<NaiveDateTime>,
+    pub created_at: NaiveDateTime,
+    pub logined_at: NaiveDateTime,
     pub status: UserStatus,
 }
 
@@ -91,16 +92,37 @@ impl UserStatus {
     }
 }
 
-impl TryFrom<u8> for UserStatus {
+impl TryFrom<i8> for UserStatus {
     type Error = ();
 
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
+    fn try_from(value: i8) -> Result<Self, Self::Error> {
         match value {
             0 => Ok(UserStatus::Active),
             1 => Ok(UserStatus::Inactive),
             2 => Ok(UserStatus::Suspended),
             3 => Ok(UserStatus::Deleted),
             _ => Err(()),
+        }
+    }
+}
+
+impl UserStatus {
+    pub fn to_i8(&self) -> i8 {
+        match self {
+            UserStatus::Active => 0,
+            UserStatus::Inactive => 1,
+            UserStatus::Suspended => 2,
+            UserStatus::Deleted => 3,
+        }
+    }
+
+    pub fn from_i8(value: i8) -> Self {
+        match value {
+            0 => UserStatus::Active,
+            1 => UserStatus::Inactive,
+            2 => UserStatus::Suspended,
+            3 => UserStatus::Deleted,
+            _ => UserStatus::Active,
         }
     }
 }

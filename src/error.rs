@@ -47,6 +47,14 @@ impl Error {
             Error::HashPasswd(_) => (StatusCode::INTERNAL_SERVER_ERROR, 50004),
         }
     }
+
+    pub fn bad_request(message: String) -> Self {
+        Error::BadRequest(BadRequest { message })
+    }
+
+    pub fn not_found() -> Self {
+        Error::NotFound(NotFound {})
+    }
 }
 
 impl IntoResponse for Error {

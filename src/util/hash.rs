@@ -20,10 +20,7 @@ pub fn generate_hash(password: &Secret<String>) -> Result<Secret<String>> {
     ))
 }
 
-pub fn verify_password(
-    password: &Secret<String>,
-    password_hash: &Secret<String>,
-) -> anyhow::Result<bool> {
+pub fn verify_password(password: &Secret<String>, password_hash: &Secret<String>) -> Result<bool> {
     let decode_hash = general_purpose::STANDARD_NO_PAD
         .decode(password_hash.expose_secret())
         .unwrap();
